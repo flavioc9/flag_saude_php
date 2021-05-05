@@ -2,22 +2,56 @@
 
 class Medico{
 
-    public $id_medico;
-    public $nome;
-    public $morada;
-    public $telefone;
-    public $id_servico;
-    public $id_especialidade;
+    //propriedade de class
+    private static $n_medicos = "medicos";
+
+
+
+
+
+
+    //propriedades de instancia
+    private $id_medico;
+    private $nome;
+    private $morada;
+    private $telefone;
+    private $id_servico;
+    private $id_especialidade;
 
     public function __construct(string $batatas, string $morada, string $telefone)
     {
-        //$this->id_medico;
         $this->nome = $batatas;
         $this->morada = $morada;
         $this->telefone = $telefone;
-        //$this->id_servico;
-        //$this->id_especialidade;
     }
+
+    //metodo de instancia
+    public function getNome(){
+        return $this->nome;
+    }
+
+    //metodo de instancia
+    public function getMorada(){
+        return $this->morada;
+    }
+
+    //metodo de instancia
+    public function getTelefone(){
+        return $this->telefone;
+    }
+
+    public function setNome(string $nome): void{
+        if(strlen($nome) >= 2){
+            $this->nome = $nome;
+        }
+
+    }
+
+    public static function getTableName(){
+        return self::$tableName;
+    }
+
+
 }
 
 ?>
