@@ -2,8 +2,10 @@
 
 class Medico{
 
+    public const tableName = "medicos";
+
     //propriedade de class
-    private static $n_medicos = "medicos";
+    private static $n_medicos = 0;
 
 
 
@@ -23,6 +25,7 @@ class Medico{
         $this->nome = $batatas;
         $this->morada = $morada;
         $this->telefone = $telefone;
+        self::$n_medicos++;
     }
 
     //metodo de instancia
@@ -47,8 +50,8 @@ class Medico{
 
     }
 
-    public static function getTableName(){
-        return self::$tableName;
+    public static function getNMedicos(){
+        return self::$n_medicos;
     }
 
 
