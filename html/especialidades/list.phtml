@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Designação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($especialidades as $especialidade) { ?>
+            <tr>
+                <th scope="row"><?php echo $especialidade->getId()?></th>
+                <td><?php echo $especialidade->getDesignacao() ?></td>
+                <td>
+                    <span><a style="color:blue" href="#">view user</a></span>
+                    <span> | </span>
+                    <span><a style="color:orange" href="#">edit user</a></span>
+                    <span> | </span>
+                    <span><a style="color:red" href="#">delete user</a></span>
+                </td>
+            </tr>
+        <?php } ?>
+    </tbody>
+</table>

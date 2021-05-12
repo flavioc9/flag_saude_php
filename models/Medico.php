@@ -1,16 +1,12 @@
 <?php
 
-class Medico{
-
-    public const tableName = "medicos";
+class Medico
+{
+    const TABLE_NAME = "medicos";
+    const ID_FIELD = "id_medico";
 
     //propriedade de class
-    private static $n_medicos = 0;
-
-
-
-
-
+    public static $n_medicos = 0;
 
     //propriedades de instancia
     private $id_medico;
@@ -20,11 +16,14 @@ class Medico{
     private $id_servico;
     private $id_especialidade;
 
-    public function __construct(string $batatas, string $morada, string $telefone)
+    public function __construct(array $attributes)
     {
-        $this->nome = $batatas;
-        $this->morada = $morada;
-        $this->telefone = $telefone;
+        $this->id_medico = $attributes['id_medico'];
+        $this->nome = $attributes['nome'];
+        $this->morada = $attributes['morada'];
+        $this->telefone = $attributes['telefone'];
+        $this->id_servico = $attributes['id_servico'];
+        $this->id_especialidade = $attributes['id_especialidade'];
         self::$n_medicos++;
     }
 
@@ -43,17 +42,32 @@ class Medico{
         return $this->telefone;
     }
 
-    public function setNome(string $nome): void{
+    public function getId(){
+        return $this->id_medico;
+    }
+
+
+    public function getEspecialidade(){
+        return $this->id_especialidade;
+    }
+
+
+    public function getServico(){
+        return $this->id_servico;
+    }
+
+    //metodo de instancia
+    public function setNome(string $nome): void
+    {
         if(strlen($nome) >= 2){
             $this->nome = $nome;
         }
-
     }
 
+    //metodo de class
     public static function getNMedicos(){
         return self::$n_medicos;
     }
-
 
 }
 
