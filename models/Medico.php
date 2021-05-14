@@ -18,9 +18,10 @@ class Medico
 
     public function __construct(array $attributes)
     {
-        if(!$attributes["nome"] || !$attributes["morada"]){
-            echo "Aprender a criar erro";
+        if(!$attributes['nome'] || !$attributes['morada']){
+            echo "Aprender a criar uma exception para impedior a criação";
         }
+
         $this->id_medico = $attributes['id_medico'] ?? null;
         $this->setNome($attributes['nome']);
         $this->morada = $attributes['morada'] ?? null;
