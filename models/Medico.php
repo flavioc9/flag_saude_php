@@ -18,12 +18,15 @@ class Medico
 
     public function __construct(array $attributes)
     {
-        $this->id_medico = $attributes['id_medico'];
-        $this->nome = $attributes['nome'];
-        $this->morada = $attributes['morada'];
-        $this->telefone = $attributes['telefone'];
-        $this->id_servico = $attributes['id_servico'];
-        $this->id_especialidade = $attributes['id_especialidade'];
+        if(!$attributes["nome"] || !$attributes["morada"]){
+            echo "Aprender a criar erro";
+        }
+        $this->id_medico = $attributes['id_medico'] ?? null;
+        $this->setNome($attributes['nome']);
+        $this->morada = $attributes['morada'] ?? null;
+        $this->telefone = $attributes['telefone'] ?? null;
+        $this->id_servico = $attributes['id_servico'] ?? null;
+        $this->id_especialidade = $attributes['id_especialidade'] ?? null;
         self::$n_medicos++;
     }
 
@@ -67,6 +70,10 @@ class Medico
     //metodo de class
     public static function getNMedicos(){
         return self::$n_medicos;
+    }
+
+    public function toArray(){
+        return get_object_vars($this);
     }
 
 }

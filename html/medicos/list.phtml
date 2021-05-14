@@ -23,11 +23,11 @@
                 <td><?php echo $medico->getEspecialidade() ?></td>
                 <td><?php echo $medico->getServico() ?></td>
                 <td>
-                    <span><a style="color:blue" href="#">view user</a></span>
+                    <span><a style="color:blue" href="medicos.php?view_id=<?php echo $medico->getId() ?>">view user</a></span>
                     <span> | </span>
-                    <span><a style="color:orange" href="#">edit user</a></span>
+                    <span><a style="color:orange" href="medicos.php?edit_id=<?php echo $medico->getId() ?>">edit user</a></span>
                     <span> | </span>
-                    <span><a style="color:red" href="#">delete user</a></span>
+                    <span><a style="color:red" href="medicos.php?delete_id=<?php echo $medico->getId() ?>">delete user</a></span>
                 </td>
             </tr>
         <?php } ?>

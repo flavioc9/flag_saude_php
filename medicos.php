@@ -6,8 +6,15 @@ require_once 'repositorios/mysql/MedicosRepository.php';
 
 $repository = new MysqlMedicosRepository;
 
+if($_SERVER['REQUEST_METHOD'] === "GET" && $_GET["delete_id"]){
+    $id = $_GET["delete_id"];
+    if($repository->delete($id)){
+        echo '<div class="alert alert-success" role="alert"> Foi apagado o user com o id <strong>'.$id.'</strong></div>';
+    }
+
+}
+
 if($_SERVER['REQUEST_METHOD'] === "POST"){
-    var_dump($_POST);
     $medico = new Medico($_POST);
     $repository->save($medico);
 }

@@ -21,4 +21,10 @@ class FilesMedicosRepository implements Repository{
         echo "falta implementacao... mas devia retornar um boleano";
         return false;
     }
+
+    public function delete(int $id) : bool
+    {
+        echo "falta implementacao... mas devia retornar um boleano";
+        return false;
+    }
 }
