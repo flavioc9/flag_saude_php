@@ -33,7 +33,7 @@ class MysqlMedicosRepository extends MysqlBaseRepository
     private function update(Medico $medico): bool
     {
         $array = $medico->toArray();
-        $stmt = $this->connection->prepare("UPDATE ". Medico::TABLE_NAME ."set nome = ?, morada = ?, telefone = ?, id_especialidade = ?, id_servico = ?  WHERE ". Medico::ID_FIELD ." = ?" );
+        $stmt = $this->connection->prepare("UPDATE ". Medico::TABLE_NAME ." set nome = ?, morada = ?, telefone = ?, id_especialidade = ?, id_servico = ?  WHERE ". Medico::ID_FIELD ." = ?" );
         $stmt->bind_param('sssiii', $array["nome"], $array["morada"], $array["telefone"], $array["id_especialidade"], $array["id_servico"], $array['id_medico']);
         return $stmt->execute();
     }
