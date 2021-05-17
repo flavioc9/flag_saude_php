@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Especialidade.php';
+require_once 'Servico.php';
+
 class Medico
 {
     const TABLE_NAME = "medicos";
@@ -13,8 +16,8 @@ class Medico
     private $nome;
     private $morada;
     private $telefone;
-    private $id_servico;
-    private $id_especialidade;
+    private $servico;
+    private $especialidade;
 
     public function __construct(array $attributes)
     {
@@ -26,8 +29,8 @@ class Medico
         $this->setNome($attributes['nome']);
         $this->morada = $attributes['morada'] ?? null;
         $this->telefone = $attributes['telefone'] ?? null;
-        $this->id_servico = $attributes['id_servico'] ?? null;
-        $this->id_especialidade = $attributes['id_especialidade'] ?? null;
+        $this->servico = $attributes['servico'] ?? null;
+        $this->especialidade = $attributes['especialidade'] ?? null;
         self::$n_medicos++;
     }
 
@@ -51,13 +54,13 @@ class Medico
     }
 
 
-    public function getEspecialidade(){
-        return $this->id_especialidade;
+    public function getEspecialidade() {
+        return $this->especialidade;
     }
 
 
     public function getServico(){
-        return $this->id_servico;
+        return $this->servico;
     }
 
     //metodo de instancia
@@ -75,6 +78,16 @@ class Medico
 
     public function toArray(){
         return get_object_vars($this);
+    }
+
+    public function setEspecialidade(Especialidade $especialidade): void
+    {
+        $this->especialidade = $especialidade;
+    }
+
+    public function setServico(Servico $servico): void
+    {
+        $this->servico = $servico;
     }
 
 }

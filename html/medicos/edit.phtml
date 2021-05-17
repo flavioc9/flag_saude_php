@@ -1,4 +1,5 @@
-
+<h1>Especialidade: <?php echo $medico->getEspecialidade(); ?></h1>
+<h1>Servico: <?php echo $medico->getServico(); ?></h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <div class="modal-body">
         <div class="form-group">
@@ -12,6 +13,22 @@
         <div class="form-group">
             <label for="telefone">Telefone</label>
             <input type="telefone" name="telefone" value="<?php echo $medico->getTelefone() ?>">
+        </div>
+        <div class="form-group">
+            <label for="especialidade">Especialidade</label>
+            <select name="especialidade" id="especialidade">
+                <?php foreach ($especialidades as $especialidade) { ?>
+                    <option value="<?php echo $especialidade->getId() ?>" <?php echo $especialidade->getId() === $medico->getEspecialidade() ? "selected" : "" ?>><?php echo $especialidade->getDesignacao() ?></option>
+                <?php } ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="servicos">Servicos</label>
+            <select name="servico" id="servicos">
+                <?php foreach ($servicos as $servico) { ?>
+                    <option value="<?php echo $servico->getId() ?>" <?php echo $servico->getId() === $medico->getServico() ? "selected" : "" ?>><?php echo $servico->getDesignacao() ?></option>
+                <?php } ?>
+            </select>
         </div>
     </div>
     <input type="hidden" name="id_medico" value="<?php echo $medico->getId() ?>">

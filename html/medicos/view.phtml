@@ -1,3 +1,5 @@
 <h1>Dr. <?php echo $medico->getNome() ?></h1>
+<h3>Especialidade: <?php  $medico->getEspecialidade() ? $medico->getEspecialidade()->getDesignacao() : "Não tem" ; ?></h3>
+<h3>Servico: <?php echo $medico->getServico() ? $medico->getServico()->getDesignacao() : "Não tem" ; ?></h3>
 <h4>Morada: <?php echo $medico->getMorada(); ?></h4>
 <?php var_dump($medico); ?>

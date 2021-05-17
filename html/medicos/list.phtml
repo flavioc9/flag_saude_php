@@ -20,8 +20,8 @@
                 <td><?php echo $medico->getNome() ?></td>
                 <td><?php echo $medico->getMorada() ?></td>
                 <td><?php echo $medico->getTelefone() ?></td>
-                <td><?php echo $medico->getEspecialidade() ?></td>
-                <td><?php echo $medico->getServico() ?></td>
+                <td><?php echo $medico->getEspecialidade() ? $medico->getEspecialidade()->getDesignacao() : "" ?></td>
+                <td><?php echo $medico->getServico() ? $medico->getServico()->getDesignacao() : "" ?></td>
                 <td>
                     <span><a style="color:blue" href="medicos.php?view_id=<?php echo $medico->getId() ?>">view user</a></span>
                     <span> | </span>
@@ -56,7 +56,23 @@
             </div>
             <div class="form-group">
               <label for="telefone">Telefone</label>
-              <input type="telefone" name="telefone">
+              <input type="text" name="telefone">
+            </div>
+            <div class="form-group">
+              <label for="especialidade">Especialidade</label>
+              <select name="especialidade" id="especialidade">
+                <?php foreach($especialidades as $especialidade){ ?>
+                  <option value="<?php echo $especialidade->getId() ?>"><?php echo $especialidade->getDesignacao() ?></option>
+                <?php } ?>                
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="servicos">Servicos</label>
+              <select name="servico" id="servicos">
+                <?php foreach($servicos as $servico){ ?>
+                  <option value="<?php echo $servico->getId() ?>"><?php echo $servico->getDesignacao() ?></option>
+                <?php } ?>                
+              </select>
             </div>
           </div>
           <input type="hidden" name="medico_id" value="<?php $medico->getId() ?>">

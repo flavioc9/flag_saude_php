@@ -14,12 +14,12 @@ class Especialidade {
         $this->designacao = $attributes['designacao'];
     }
 
-    public function getId() : int
+    public function getId()
     {
         return $this->especialidade_id;
     }
 
-    public function getDesignacao() : string
+    public function getDesignacao()
     {
         return $this->designacao;
     }

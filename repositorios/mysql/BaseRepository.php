@@ -33,19 +33,10 @@ abstract class MysqlBaseRepository implements Repository {
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $attributes = $stmt->get_result()->fetch_assoc();
-
+        // falta corrigir para medicos usarem objectos
+        $attributes['especialidade'] = $attributes['id_especialidade']; // criar o objecto especialidade
+        $attributes['servico'] = $attributes['id_servico']; // criar o objecto serviço
         return new $this->model($attributes);
     }
 
-    public function save(object $model) : bool
-    {
-        echo "falta implementacao... mas devia retornar um boleano";
-        return false;
-    }
-
-    public function delete(int $id) : bool
-    {
-        echo "falta implementacao... mas devia retornar um boleano";
-        return false;
-    }
 }

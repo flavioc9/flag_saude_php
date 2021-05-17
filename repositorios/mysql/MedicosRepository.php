@@ -2,6 +2,8 @@
 
 require_once 'Database.php';
 require_once '../flag_saude_php/models/Medico.php';
+require_once '../flag_saude_php/models/Especialidade.php';
+require_once '../flag_saude_php/models/Servico.php';
 require_once '../flag_saude_php/repositorios/mysql/BaseRepository.php';
 
 class MysqlMedicosRepository extends MysqlBaseRepository
@@ -11,6 +13,30 @@ class MysqlMedicosRepository extends MysqlBaseRepository
     {
         parent::__construct();
         $this->model = Medico::class;
+    }
+
+    public function findAll(): array
+    {
+        $stmt = $this->connection->prepare("Select medicos.*, especialidades.designacao as e_designacao, servicos.designacao as s_designacao FROM " . Medico::TABLE_NAME .
+        " LEFT JOIN " . Especialidade::TABLE_NAME . " ON medicos.id_especialidade = especialidades." . Especialidade::ID_FIELD .
+        " LEFT JOIN " . Servico::TABLE_NAME . " ON medicos.id_servico = servicos." . Servico::ID_FIELD);
+        $stmt->execute();
+        $rows = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        $results = [];
+        foreach ($rows as $attributes) {
+            $attributes["especialidade"] = new Especialidade([
+                "especialidade_id" => $attributes["id_especialidade"], 
+                "designacao" => $attributes["e_designacao"]
+            ]);
+            $attributes["servico"] = new Servico([
+                "id_servico" => $attributes["id_servico"],
+                "designacao" => $attributes["s_designacao"]
+            ]);
+            array_push($results, new Medico($attributes));
+        }
+
+        return $results;
     }
 
     public function save(object $medico): bool
@@ -25,8 +51,9 @@ class MysqlMedicosRepository extends MysqlBaseRepository
     private function insert(Medico $medico): bool
     {
         $array = $medico->toArray();
+        var_dump($array);
         $stmt = $this->connection->prepare("INSERT INTO " . Medico::TABLE_NAME . "(nome, morada, telefone, id_especialidade, id_servico) values(?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssii', $array["nome"], $array["morada"], $array["telefone"], $array["id_especialidade"], $array["id_servico"]);
+        $stmt->bind_param('sssii', $array["nome"], $array["morada"], $array["telefone"], $array["especialidade"], $array["servico"]);      
         return $stmt->execute();
     }
 
@@ -34,7 +61,7 @@ class MysqlMedicosRepository extends MysqlBaseRepository
     {
         $array = $medico->toArray();
         $stmt = $this->connection->prepare("UPDATE ". Medico::TABLE_NAME ." set nome = ?, morada = ?, telefone = ?, id_especialidade = ?, id_servico = ?  WHERE ". Medico::ID_FIELD ." = ?" );
-        $stmt->bind_param('sssiii', $array["nome"], $array["morada"], $array["telefone"], $array["id_especialidade"], $array["id_servico"], $array['id_medico']);
+        $stmt->bind_param('sssiii', $array["nome"], $array["morada"], $array["telefone"], $array["especialidade"], $array["servico"], $array['id_medico']);
         return $stmt->execute();
     }
 
