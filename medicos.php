@@ -5,6 +5,7 @@ require_once 'models/Medico.php';
 require_once 'repositorios/mysql/MedicosRepository.php';
 require_once 'repositorios/mysql/EspecialidadesRepository.php';
 require_once 'repositorios/mysql/ServicosRepository.php';
+require_once 'services/UploadService.php';
 
 $repository = new MysqlMedicosRepository;
 $especialidadesRepository = new MysqlEspecialidadeRepository; 
@@ -29,8 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === "GET") {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    $medico = new Medico($_POST);
-    $repository->save($medico);
+    // gravar imagem
+    $filename = uniqid().".jpg";
+    $attributes = $_POST;
+    $attributes['foto'] = $uploadService->saveFile("images/".$filename, $_FILES['foto']['tmp_name']) ? $filename : null;
+    $uploadService = new UploadService;
+    $repository->save(new Medico($attributes));
+    
 }
 
 $medicos = !isset($medico) ? $repository->findAll() : [];

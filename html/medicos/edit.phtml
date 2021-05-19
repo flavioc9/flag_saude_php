@@ -1,5 +1,3 @@
-<h1>Especialidade: <?php echo $medico->getEspecialidade(); ?></h1>
-<h1>Servico: <?php echo $medico->getServico(); ?></h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
     <div class="modal-body">
         <div class="form-group">
@@ -34,6 +32,6 @@
     <input type="hidden" name="id_medico" value="<?php echo $medico->getId() ?>">
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">fechar</button>
-        <button type="submit" class="btn btn-primary">criar</button>
+        <button type="submit" class="btn btn-primary">Editar</button>
     </div>
 </form>

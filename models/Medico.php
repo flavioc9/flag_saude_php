@@ -18,6 +18,7 @@ class Medico
     private $telefone;
     private $servico;
     private $especialidade;
+    private $foto;
 
     public function __construct(array $attributes)
     {
@@ -31,6 +32,7 @@ class Medico
         $this->telefone = $attributes['telefone'] ?? null;
         $this->servico = $attributes['servico'] ?? null;
         $this->especialidade = $attributes['especialidade'] ?? null;
+        $this->foto = $attributes['foto'] ?? null;
         self::$n_medicos++;
     }
 
@@ -53,16 +55,18 @@ class Medico
         return $this->id_medico;
     }
 
-
     public function getEspecialidade() {
         return $this->especialidade;
     }
-
 
     public function getServico(){
         return $this->servico;
     }
 
+    public function getFoto(){
+        return $this->foto;
+    }
+    
     //metodo de instancia
     public function setNome(string $nome): void
     {
@@ -77,7 +81,10 @@ class Medico
     }
 
     public function toArray(){
-        return get_object_vars($this);
+        $attributes = get_object_vars($this);
+        $attributes["especialidade_id"] =  $attributes["especialidade"] instanceof Especialidade ? $this->especialidade->getId() : $attributes["especialidade"];
+        $attributes["servico_id"] =  $attributes["servico"] instanceof Servico ? $this->servico->getId() : $attributes["servico"];
+        return $attributes;
     }
 
     public function setEspecialidade(Especialidade $especialidade): void
